@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://customer.caption"
+        class="com.amkat.ordermanager.web.screens.Customerscreen"
+        messagesPack="com.amkat.ordermanager.web.screens">
+    <dsContext>
+        <groupDatasource id="customersDs"
+                         class="com.amkat.ordermanager.entity.Customer"
+                         view="customer-view">
+            <query>
+                <![CDATA[select e from ordermanager$Customer e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="customers">
+        <filter id="customerFilter"
+                datasource="customersDs"/>
+        <table id="customers"
+               width="100%">
+            <columns>
+                <column id="name"
+                        editable="true"/>
+                <column id="phone"
+                        editable="true"/>
+                <column id="email"
+                        editable="true"/>
+                <column id="address"
+                        editable="true"/>
+                <column id="city"
+                        editable="true"/>
+                <column id="note"
+                        editable="true"/>
+                <column id="optinAds"
+                        editable="true"/>
+                <column id="fbLink"
+                        editable="true"/>
+                <column id="integramLink"
+                        editable="true"/>
+            </columns>
+            <rows datasource="customersDs"/>
+        </table>
+        <buttonsPanel align="TOP_CENTER">
+            <button id="editCustomer"
+                    caption="msg://editCustomer"
+                    invoke="onEditCustomerClick"/>
+            <button id="addCustomer"
+                    caption="msg://addCustomer"
+                    description="msg://addCustomerDesc"
+                    invoke="onAddCustomerClick"/>
+            <button id="saveEdit"
+                    caption="msg://customerSave"
+                    invoke="onSaveEditClick"/>
+            <button id="cancelEdit"
+                    caption="msg://customerCancel"
+                    invoke="onCancelEditClick"/>
+            <label align="MIDDLE_CENTER"
+                   htmlEnabled="true"
+                   value="|"/>
+            <button id="openOrders"
+                    caption="msg://openOrders"
+                    description="msg://openOrderDesc"
+                    invoke="onOpenOrdersClick"/>
+        </buttonsPanel>
+    </layout>
+</window>

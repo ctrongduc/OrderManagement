@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.amkat.ordermanager.web.screens.Orderscreen"
+        messagesPack="com.amkat.ordermanager.web.screens">
+    <dsContext>
+        <groupDatasource id="customersNameDs"
+                         class="com.amkat.ordermanager.entity.Customer"
+                         view="customer-name-view">
+            <query>
+                <![CDATA[select e from ordermanager$Customer e]]>
+            </query>
+        </groupDatasource>
+        <groupDatasource id="customersPhoneNumberDs"
+                         class="com.amkat.ordermanager.entity.Customer"
+                         view="customer-phone-view">
+            <query>
+                <![CDATA[select e from ordermanager$Customer e]]>
+            </query>
+        </groupDatasource>
+        <valueGroupDatasource id="ordersDs">
+            <query>
+                <![CDATA[select o.id
+     , o.orderDate 
+     , c.name
+     , c.email
+     , sum(oi.quality) totalQuality
+     , sum(oi.quotedPrice) totalQuotedPrice
+     , sum(oi.unitPrice) totalUnitPrice
+from ordermanager$Order o
+join ordermanager$Customer c on o.customer = c.id
+join ordermanager$OrderItem oi on o.id = oi.order
+group by o.id
+     , o.orderDate 
+     , c.name
+     , c.email]]>
+            </query>
+        </valueGroupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="ordersTable">
+        <groupBox caption="msg://order.searchByCustomer"
+                  spacing="true">
+            <buttonsPanel>
+                <suggestionField id="customerName"
+                                 caption="msg://search.customername"
+                                 datasource="customersNameDs"
+                                 width="340px"/>
+                <suggestionField id="customerPhoneNumber"
+                                 caption="msg://order.search.customerPhoneNumber"
+                                 width="251px"/>
+            </buttonsPanel>
+        </groupBox>
+        <groupBox caption="msg://customer.searchByOrder"
+                  spacing="true">
+            <buttonsPanel>
+                <textField caption="msg://order.orderId"
+                           width="244px"/>
+                <dateField caption="msg://order.orderDate"
+                           width="262px"/>
+            </buttonsPanel>
+        </groupBox>
+        <buttonsPanel>
+            <button caption="msg://order.search"/>
+        </buttonsPanel>
+        <groupTable id="ordersTable"
+                    width="100%">
+            <columns/>
+            <rows datasource="ordersDs"/>
+        </groupTable>
+    </layout>
+</window>

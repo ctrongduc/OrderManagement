@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="com.amkat.ordermanager.entity.Customer"
+          extends="_local"
+          name="customer-view"/>
+    <view class="com.amkat.ordermanager.entity.Customer"
+          extends="_minimal"
+          name="customer-name-view"/>
+    <view class="com.amkat.ordermanager.entity.Customer"
+          name="customer-phone-view">
+        <property name="phone"/>
+    </view>
+</views>
